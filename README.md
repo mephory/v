@@ -7,15 +7,26 @@ v allows you to use manipulate texts by applying vim keystrokes to them
     git clone git@github.com/mephory/v.git
     cp v/v /usr/bin/
 
+## Usage
+
+    v [-s] keystrokes
+
+The `-s` flag tells `v` to apply the keystrokes only once.
+By default, the keystrokes will be applied once per line.
+
 ## Examples
 
-Replace the first word in ./text with "hello"
+Replace the first word of every line in ./text with "hello"
 
     cat ./text | v 'cwhello'
 
+Add an exclamation mark to the end of the first line in ./text
+
+    cat ./text | v -s 'A!'
+
+
 ## Todo
 
-Make it possible to apply the keystrokes to every line of the input.
-For example, to replace the first word in every line with "hello", you would do:
-
-    cat ./text | v -l 'cwhello'
+* Trailing spaces in the keystrokes will be ignored
+* `cat ./text | v something > ./text` will leave you with an empty ./text
+* Commands like 'o' don't behave correctly when used without the -s flag
