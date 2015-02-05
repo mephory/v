@@ -25,7 +25,7 @@ VINFOFILE="/tmp/$VUUID-info"
 VOUTPUTFILE="/tmp/$VUUID"
 
 # Write the $VSCRIPTFILE according to the presence of the -s flag
-if [[ $1 == '-s' ]]; then
+if [ $1 = '-s' ]; then
     echo ":norm! @v:wq $VOUTPUTFILE" > $VSCRIPTFILE
     shift
 else
