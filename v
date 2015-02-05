@@ -25,17 +25,17 @@ VINFOFILE="/tmp/$VUUID-info"
 VOUTPUTFILE="/tmp/$VUUID"
 
 # Write the $VSCRIPTFILE according to the presence of the -s flag
-if [ $1 = '-s' ]; then
-    echo ":norm! @v:wq $VOUTPUTFILE" > $VSCRIPTFILE
+if [ "$1" = '-s' ]; then
+    echo ":norm! @v:wq $VOUTPUTFILE" > "$VSCRIPTFILE"
     shift
 else
-    echo ":%norm! @v:wq $VOUTPUTFILE" > $VSCRIPTFILE
+    echo ":%norm! @v:wq $VOUTPUTFILE" > "$VSCRIPTFILE"
 fi
 
 # Write the $VINFOFILE to store the given keystrokes in the 'v' register
 PARSED_SCRIPT="$(echo "$@" | sed 's/<cr>//g' | sed 's/<esc>//g')"
 echo "\"v@	CHAR	0
-	$PARSED_SCRIPT" > $VINFOFILE
+	$PARSED_SCRIPT" > "$VINFOFILE"
 
 # Pipe the stdin to vim
 #   -X: don't talk to the X server (speeds up the startup time a bit)
@@ -43,10 +43,10 @@ echo "\"v@	CHAR	0
 #   -s: Use the $VSCRIPTFILE as the script file executed when vim starts
 # We pipe stdout and stderr to /dev/null to suppress vim's "Reading from
 # stdin..." message
-cat | vim - -X -i $VINFOFILE -s $VSCRIPTFILE 2>/dev/null 1>/dev/null
+cat | vim - -X -i "$VINFOFILE" -s "$VSCRIPTFILE" 2>/dev/null 1>/dev/null
 
 # Print back the $VOUTPUTFILE and then remove our temporary files
-cat $VOUTPUTFILE
-rm $VSCRIPTFILE
-rm $VINFOFILE
-rm $VOUTPUTFILE
+cat "$VOUTPUTFILE"
+rm "$VSCRIPTFILE"
+rm "$VINFOFILE"
+rm "$VOUTPUTFILE"
