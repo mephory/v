@@ -33,7 +33,7 @@ else
 fi
 
 # Write the $VINFOFILE to store the given keystrokes in the 'v' register
-PARSED_SCRIPT="$(echo $@ | sed 's/<cr>//g' | sed 's/<esc>//g')"
+PARSED_SCRIPT="$(echo "$@" | sed 's/<cr>//g' | sed 's/<esc>//g')"
 echo "\"v@	CHAR	0
 	$PARSED_SCRIPT" > $VINFOFILE
 
