@@ -27,5 +27,4 @@ Add an exclamation mark to the end of the first line in ./text
 
 ## Todo
 
-* `cat ./text | v something > ./text` will leave you with an empty ./text
 * Commands like 'o' don't behave correctly when used without the -s flag
