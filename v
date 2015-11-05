@@ -24,16 +24,20 @@ VSCRIPTFILE="/tmp/$VUUID-script"
 VINFOFILE="/tmp/$VUUID-info"
 VOUTPUTFILE="/tmp/$VUUID"
 
+# Literal Return and Escape characters (produced with "C-v <key>")
+RETURN=""
+ESCAPE=""
+
 # Write the $VSCRIPTFILE according to the presence of the -s flag
 if [ "$1" = '-s' ]; then
-    echo ":norm! @v:wq $VOUTPUTFILE" > "$VSCRIPTFILE"
+    echo ":norm! @v$RETURN$ESCAPE:wq $VOUTPUTFILE" > "$VSCRIPTFILE"
     shift
 else
-    echo ":%norm! @v:wq $VOUTPUTFILE" > "$VSCRIPTFILE"
+    echo ":%norm! @v$RETURN$ESCAPE:wq $VOUTPUTFILE" > "$VSCRIPTFILE"
 fi
 
 # Write the $VINFOFILE to store the given keystrokes in the 'v' register
-PARSED_SCRIPT="$(echo "$@" | sed 's/<cr>//g' | sed 's/<esc>//g')"
+PARSED_SCRIPT="$(echo "$@" | sed "s/<cr>/$RETURN/g" | sed "s/<esc>/$ESCAPE/g")"
 echo "\"v@	CHAR	0
 	$PARSED_SCRIPT" > "$VINFOFILE"
 
